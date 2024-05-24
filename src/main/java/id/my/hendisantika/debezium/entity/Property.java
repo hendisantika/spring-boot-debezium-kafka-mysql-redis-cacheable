@@ -1,4 +1,4 @@
-package id.my.hendisantika.debezium.config;
+package id.my.hendisantika.debezium.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
