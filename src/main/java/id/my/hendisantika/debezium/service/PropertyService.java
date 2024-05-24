@@ -4,6 +4,7 @@ import id.my.hendisantika.debezium.entity.Property;
 import id.my.hendisantika.debezium.repository.PropertyRepository;
 import id.my.hendisantika.debezium.request.PropertyRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,5 +39,16 @@ public class PropertyService {
 
         property.setPropertyValue(propertyRequest.getPropertyValue());
         propertyRepository.save(property);
+    }
+
+    @Transactional
+    @Cacheable(value = "property", cacheManager = "cacheManager", key = "#key")
+    public String getProperty(String key) throws InterruptedException {
+        Property property = propertyRepository.findByPropertyKey(key)
+                .orElseThrow(() -> new RuntimeException("Property Not Found!"));
+
+        Thread.sleep(1000);
+
+        return property.getPropertyValue();
     }
 }
