@@ -1,5 +1,6 @@
 package id.my.hendisantika.debezium.service;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,4 +15,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class PropertyCacheService {
+    @Cacheable(value = "property", cacheManager = "cacheManager", key = "#key")
+    public String cacheProperty(String key, String value) {
+        return value;
+    }
 }
