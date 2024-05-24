@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/v1/property")
+@RequestMapping(value = "/v1/properties")
 public class PropertyController {
 
     private final PropertyService propertyService;
@@ -33,4 +34,9 @@ public class PropertyController {
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
+    @PutMapping()
+    public ResponseEntity<?> updateProperty(@RequestBody PropertyRequest propertyRequest) {
+        propertyService.updateProperty(propertyRequest);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
 }
