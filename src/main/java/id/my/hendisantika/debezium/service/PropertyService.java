@@ -1,8 +1,10 @@
 package id.my.hendisantika.debezium.service;
 
+import id.my.hendisantika.debezium.entity.Property;
 import id.my.hendisantika.debezium.repository.PropertyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,4 +21,12 @@ import org.springframework.stereotype.Service;
 public class PropertyService {
 
     private final PropertyRepository propertyRepository;
+
+    @Transactional
+    public String createProperty(String key, String value) {
+        Property property = Property.builder()
+                .propertyKey(key)
+                .propertyValue(value).build();
+        return propertyRepository.save(property).getPropertyValue();
+    }
 }
