@@ -2,6 +2,7 @@ package id.my.hendisantika.debezium.service;
 
 import id.my.hendisantika.debezium.entity.Property;
 import id.my.hendisantika.debezium.repository.PropertyRepository;
+import id.my.hendisantika.debezium.request.PropertyRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,5 +29,14 @@ public class PropertyService {
                 .propertyKey(key)
                 .propertyValue(value).build();
         return propertyRepository.save(property).getPropertyValue();
+    }
+
+    @Transactional
+    public void updateProperty(PropertyRequest propertyRequest) {
+        Property property = propertyRepository.findByPropertyKey(propertyRequest.getPropertyKey())
+                .orElseThrow(() -> new RuntimeException("Property Not Found!"));
+
+        property.setPropertyValue(propertyRequest.getPropertyValue());
+        propertyRepository.save(property);
     }
 }
