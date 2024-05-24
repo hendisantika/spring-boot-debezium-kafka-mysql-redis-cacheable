@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: spring-boot-debezium-kafka-mysql-redis-cacheable
+  datasource:
+    url: jdbc:mysql://localhost:3306/debezium
+    username: debezium
+    password: S3cret
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
