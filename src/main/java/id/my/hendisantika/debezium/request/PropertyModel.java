@@ -13,8 +13,9 @@ import lombok.Data;
  * To change this template use File | Settings | File Templates.
  */
 @Data
-public class PropertyPayload {
-    private String op;
-    private PropertyModel before;
-    private PropertyModel after;
+public class PropertyModel {
+    private Long id;
+    private Long created_date;
+    private String property_key;
+    private String property_value;
 }
