@@ -1,7 +1,12 @@
 package id.my.hendisantika.debezium.controller;
 
+import id.my.hendisantika.debezium.request.PropertyRequest;
 import id.my.hendisantika.debezium.service.PropertyService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,5 +26,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class PropertyController {
 
     private final PropertyService propertyService;
+
+    @PostMapping()
+    public ResponseEntity<?> createProperty(@RequestBody PropertyRequest propertyRequest) {
+        propertyService.createProperty(propertyRequest.getPropertyKey(), propertyRequest.getPropertyValue());
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
+    }
 
 }
