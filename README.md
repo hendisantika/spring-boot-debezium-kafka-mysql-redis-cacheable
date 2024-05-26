@@ -43,9 +43,9 @@ curl --location 'http://localhost:8083/connectors' \
         "connector.class": "io.debezium.connector.mysql.MySqlConnector",
         "database.allowPublicKeyRetrieval":"true",
         "database.hostname": "host.docker.internal",
-        "database.port": "3306",
+        "database.port": "3307",
         "database.user": "debezium",
-        "database.password": "123456",
+        "database.password": "S3cret",
         "database.include.list": "debezium",
         "table.include.list": "debezium.debezium_property",
         "topic.prefix": "property",
@@ -88,3 +88,38 @@ public void cacheEvict(String key) {
 }
 ```
 
+### List Commands
+
+Add New Property
+
+```shell
+curl --location 'localhost:8080/v1/properties' \
+--header 'Content-Type: application/json' \
+--data '{
+    "key": "212",
+    "value": "YUJI"
+}'
+```
+
+Get All Properties
+
+```shell
+curl --location 'http://localhost:8080/v1/properties/all'
+```
+
+Get Property By Key
+
+```shell
+curl --location 'localhost:8080/v1/properties?key=212'
+```
+
+Update Property
+
+```shell
+curl --location --request PUT 'localhost:8080/v1/properties' \
+--header 'Content-Type: application/json' \
+--data '{
+    "key": "001",
+    "value": "JUJUTSU"
+}'
+```
