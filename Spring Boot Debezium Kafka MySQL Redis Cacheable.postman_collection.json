@@ -1,0 +1,127 @@
+{
+  "info": {
+    "_postman_id": "279ed416-81e9-473f-8833-67b896356648",
+    "name": "Spring Boot Debezium Kafka MySQL Redis Cacheable",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "276892"
+  },
+  "item": [
+    {
+      "name": "Add New Property",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"key\": \"212\",\n    \"value\": \"YUJI\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/v1/properties",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "v1",
+            "properties"
+          ]
+        },
+        "description": "Add New Property"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Property",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/v1/properties?key=212",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "v1",
+            "properties"
+          ],
+          "query": [
+            {
+              "key": "key",
+              "value": "212"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Property",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "Debezium Connector",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"property-connector\",\n    \"config\": {\n        \"connector.class\": \"io.debezium.connector.mysql.MySqlConnector\",\n        \"database.allowPublicKeyRetrieval\":\"true\",\n        \"database.hostname\": \"host.docker.internal\",\n        \"database.port\": \"3307\",\n        \"database.user\": \"debezium\",\n        \"database.password\": \"S3cret\",\n        \"database.include.list\": \"debezium\",\n        \"table.include.list\": \"debezium.debezium_property\",\n        \"topic.prefix\": \"property\",\n        \"schema.history.internal.kafka.bootstrap.servers\":  \"kafka:9092\",\n        \"schema.history.internal.kafka.topic\": \"schema-changes.db\",\n        \"database.server.id\": 1\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8083/connectors",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8083",
+          "path": [
+            "connectors"
+          ]
+        },
+        "description": "Debezium Connector"
+      },
+      "response": []
+    },
+    {
+      "name": "List All Properties",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/v1/properties/all",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "v1",
+            "properties",
+            "all"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
