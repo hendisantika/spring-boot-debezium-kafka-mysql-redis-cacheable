@@ -8,6 +8,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : spring-boot-debezium-kafka-mysql-redis-cacheable
@@ -24,6 +26,10 @@ public class PropertyService {
 
     private final PropertyRepository propertyRepository;
 
+    public List<Property> listAllProperties() {
+        return propertyRepository.findAll();
+    }
+
     @Transactional
     public String createProperty(String key, String value) {
         Property property = Property.builder()
@@ -34,10 +40,10 @@ public class PropertyService {
 
     @Transactional
     public void updateProperty(PropertyRequest propertyRequest) {
-        Property property = propertyRepository.findByPropertyKey(propertyRequest.getPropertyKey())
+        Property property = propertyRepository.findByPropertyKey(propertyRequest.getKey())
                 .orElseThrow(() -> new RuntimeException("Property Not Found!"));
 
-        property.setPropertyValue(propertyRequest.getPropertyValue());
+        property.setPropertyValue(propertyRequest.getValue());
         propertyRepository.save(property);
     }
 

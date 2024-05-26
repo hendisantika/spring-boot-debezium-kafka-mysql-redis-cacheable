@@ -5,7 +5,7 @@ spring:
   application:
     name: spring-boot-debezium-kafka-mysql-redis-cacheable
   datasource:
-    url: jdbc:mysql://localhost:3306/debezium
+    url: jdbc:mysql://localhost:3307/debezium
     username: debezium
     password: S3cret
     driver-class-name: com.mysql.cj.jdbc.Driver

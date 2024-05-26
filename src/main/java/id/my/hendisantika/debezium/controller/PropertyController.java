@@ -32,7 +32,7 @@ public class PropertyController {
 
     @PostMapping()
     public ResponseEntity<?> createProperty(@RequestBody PropertyRequest propertyRequest) {
-        propertyService.createProperty(propertyRequest.getPropertyKey(), propertyRequest.getPropertyValue());
+        propertyService.createProperty(propertyRequest.getKey(), propertyRequest.getValue());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -45,5 +45,10 @@ public class PropertyController {
     @GetMapping()
     public ResponseEntity<?> getProperty(@RequestParam(name = "key") String key) throws InterruptedException {
         return new ResponseEntity<>(propertyService.getProperty(key), HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<?> getAllProperties() throws InterruptedException {
+        return new ResponseEntity<>(propertyService.listAllProperties(), HttpStatus.OK);
     }
 }

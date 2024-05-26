@@ -14,6 +14,6 @@ import lombok.Data;
  */
 @Data
 public class PropertyRequest {
-    private String propertyKey;
-    private String propertyValue;
+    private String key;
+    private String value;
 }
