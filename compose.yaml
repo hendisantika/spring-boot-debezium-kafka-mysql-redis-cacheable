@@ -1,7 +1,7 @@
 services:
   redis:
     container_name: redis-master
-    image: bitnami/redis:7.2.5
+    image: bitnami/redis:latest
     environment:
       - REDIS_AOF_ENABLED=yes
       - ALLOW_EMPTY_PASSWORD=yes
@@ -11,7 +11,7 @@ services:
       - ./redis/data:/bitnami/redis/data
 
   mysql:
-    image: mysql:8.4.0
+    image: mysql:9.4.0
     container_name: mysql-debezium
     ports:
       - "3307:3306"
@@ -23,7 +23,7 @@ services:
       MYSQL_ROOT_PASSWORD: S3cret
     command: --character-set-server=utf8 --collation-server=utf8_general_ci
     volumes:
-      - ./mysql-data:/var/lib/mysql
+      - ./mysql_data:/var/lib/mysql
     networks:
       - test-network
 
@@ -65,7 +65,7 @@ services:
       KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
 
   debezium:
-    image: debezium/connect:2.7
+    image: debezium/connect:2.7.3.Final
     container_name: debezium
     ports:
       - 8083:8083
